@@ -7,6 +7,11 @@ import TextField from 'material-ui/TextField';
 
 import List from 'material-ui/List/List';
 
+import './todoList.css'
+
+import axios from 'axios';
+
+
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
@@ -28,21 +33,37 @@ class TodoList extends React.Component {
             ]
         }
     }
+
+    componentDidMount() {
+        axios.get('http://localhost:3000/api/todos')
+        .then(res => {
+            console.log(res)
+            console.log(res.data)
+            this.setState({
+                todos: res.data.data.docs
+            })
+        })
+    }
+
     render() {
 
         let todoItems = this
             .state
             .todos
             .map(todo => {
-                return <TodoListItem todo={todo}/>
+                return <TodoListItem todo={todo} />
             })
 
         return <div className="todo-list">
             {todoItems}
-            <TextField hintText="Todo Title"/>
-            <TextField hintText="Todo Description"/>
 
-            <RaisedButton label="Create"/>
+            <div className="new-todo">
+
+                <TextField hintText="Todo Title" />
+                <TextField hintText="Todo Description" />
+
+                <RaisedButton label="Create" />
+            </div>
 
         </div>
     }
