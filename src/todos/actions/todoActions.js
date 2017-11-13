@@ -1,11 +1,8 @@
+import { TodoApi } from "../../api/todoApi";
+
 export const CREATE_TODO = '[Todo] CREATE_TODO' 
 export const CREATE_TODO_SUCCESS = '[Todo] CREATE_TODO_SUCCESS' 
 export const CREATE_TODO_ERROR = '[Todo] CREATE_TODO_ERROR' 
-
-export const GET_TODO = '[Todo] GET_TODO' 
-export const GET_TODO_SUCCESS = "[Todo] GET_TODO_SUCCESS" 
-export const GET_TODO_ERROR = "[Todo] GET_TODO_ERROR" 
-
 
 export const GET_TODOS = '[Todo] GET_TODOS' 
 export const GET_TODOS_SUCCESS = '[Todo] GET_TODOS_SUCCESS' 
@@ -26,11 +23,28 @@ export const COMPLETE_TODO = 'COMPLETE_TODO'
 
 export function CreateTodo(todo){
     return (dispatch, getState) => {
-        dispatch(GET_TODOS_SUCCESS({}))
+        return TodoApi.createTodo(todo).then(res => {
+            dispatch(CreateTodoSuccess(res.data))
+        })
     }
 }
 
-export function GET_TODOS_SUCCESS(todos){
+export function CreateTodoSuccess(todo){
+    return {
+        type:CREATE_TODO_SUCCESS,
+        todo
+    }
+}
+
+export function GetTodos(){
+    return (dispactch, getState) => {
+        return TodoApi.getTodo().then(res => {
+            dispactch(GetTodoSuccess(res))
+        })
+    }
+}
+
+export function GetTodoSuccess(todos){
     return {
         type:GET_TODOS_SUCCESS,
         todos
