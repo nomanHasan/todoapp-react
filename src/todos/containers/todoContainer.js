@@ -2,28 +2,27 @@ import React, { Component } from 'react';
 import * as TodoActions from '../actions/todoActions'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
-import {PropTypes} from 'prop-types'
+import { PropTypes } from 'prop-types'
+import TodoTable from '../components/todoTable';
+
+
 
 export class TodoContainer extends Component {
     constructor(props) {
         super(props)
         console.log(props)
     }
+
     render() {
         return (
             <div className="todo-container">
-                <h2>TODO CONTAINER</h2>
-                <ul>
-                    {this.props.todos.map(t => {
-                        return <li>{t.title} {t.description} {t.date}</li>
-                    })}
-                </ul>
+                <TodoTable todos={this.props.todos} />
             </div>
         );
     }
 }
 
-TodoContainer.propTypes  = {
+TodoContainer.propTypes = {
     actions: PropTypes.object.isRequired,
     todos: PropTypes.array.isRequired
 }

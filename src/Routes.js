@@ -7,11 +7,9 @@ import TodoContainer from './todos/containers/todoContainer'
 const Routes = (props) => {
     return (
         <BrowserRouter>
-            <div className="routes">
-                <Switch>
-                    <Route path="/todos" component={TodoContainer} />
-                </Switch>
-            </div>
+            <Switch>
+                <Route path="/" component={TodoContainer} />
+            </Switch>
         </BrowserRouter>
     )
 }
