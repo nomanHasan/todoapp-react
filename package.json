@@ -6,6 +6,7 @@
     "axios": "^0.16.2",
     "font-awesome": "^4.7.0",
     "material-ui": "^0.19.4",
+    "moment": "^2.19.2",
     "react": "^16.0.0",
     "react-datepicker": "^0.61.0",
     "react-dom": "^16.0.0",
