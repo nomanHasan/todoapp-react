@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import { Button, Icon, Label, Menu, Table } from 'semantic-ui-react'
 import TodoRow from './todoRow'
-import CreateTodo from './createTodo'
+import EditTodo from './editTodo'
 
 const TodoTable = (props) => {
     return (
@@ -22,9 +22,14 @@ const TodoTable = (props) => {
 
             <Table.Body>
                 {props.todos.map(t => {
+                    if (t.editing) {
+                        return <EditTodo editTodo={props.editTodo} todo={this.t} />
+                    } else {
+                        
                     return <TodoRow todo={t} key={t._id} />
+                    }
                 })}
-                <CreateTodo/>
+                <EditTodo createTodo={props.createTodo} />
             </Table.Body>
 
         </Table>

@@ -4,7 +4,7 @@ const API  = 'http://localhost:3000/api'
 const TODO_API = `${API}/todos`
 
 const createTodo = todo => {
-    return HttpClient.post(TODO_API,todo)
+    return HttpClient.post(TODO_API, todo)
 }
 
 const getTodo = () => {

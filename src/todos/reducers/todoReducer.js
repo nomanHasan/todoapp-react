@@ -1,7 +1,7 @@
 import * as  TodoActions from '../actions/todoActions'
 
 
-export function TodoReducer(state = [], action){
+export function TodoListReducer(state = [], action){
     switch (action.type) {
         case TodoActions.CREATE_TODO_SUCCESS:
             return [
@@ -10,7 +10,12 @@ export function TodoReducer(state = [], action){
             ];
         case TodoActions.GET_TODOS_SUCCESS:
             return action.todos.data.data.docs;
+        case TodoActions.START_EDITING:
+            return [
+                ...state,
+
+            ]    
         default:
             return state 
     }
-} 
+}

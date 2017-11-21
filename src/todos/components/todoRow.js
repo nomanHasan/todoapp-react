@@ -12,7 +12,9 @@ const TodoRow = (props) => {
             <Button color='green'>
                 <i className="fa fa-check"></i>
             </Button>
-            <Button color='blue'>
+                <Button color='blue'
+                    onClick={props.startEditing}
+                >
                 <i className="fa fa-pencil"></i>
             </Button>
             <Button color='red'>

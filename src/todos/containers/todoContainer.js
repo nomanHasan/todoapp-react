@@ -13,10 +13,19 @@ export class TodoContainer extends Component {
         console.log(props)
     }
 
+    createTodo = (todo) => {
+        // alert('Todo Created' + JSON.stringify(todo))
+        this.props.actions.CreateTodo(todo)
+    }
+
+    startEditing = (id) => {
+        this.props.actions.startEditing(id)
+    }
+
     render() {
         return (
             <div className="todo-container">
-                <TodoTable todos={this.props.todos} />
+                <TodoTable todos={this.props.todos} createTodo={this.createTodo} startEditing={this.startEditing} />
             </div>
         );
     }
