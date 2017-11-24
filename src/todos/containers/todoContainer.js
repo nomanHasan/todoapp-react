@@ -14,18 +14,39 @@ export class TodoContainer extends Component {
     }
 
     createTodo = (todo) => {
-        // alert('Todo Created' + JSON.stringify(todo))
         this.props.actions.CreateTodo(todo)
     }
 
     startEditing = (id) => {
-        this.props.actions.startEditing(id)
+        this.props.actions.StartEditing(id)
     }
+    cancelEditing = (id) => {
+        this.props.actions.CancelEditing(id)
+    }
+    editTodo = (todo) => {
+        this.props.actions.UpdateTodo(todo)
+    }
+    completeTodo = (todo) => {
+        this.props.actions.UpdateTodo({...todo, status: 'done'})
+    }
+    deleteTodo = (todo) => {
+        this.props.actions.DeleteTodo(todo)
+    }
+
+
 
     render() {
         return (
             <div className="todo-container">
-                <TodoTable todos={this.props.todos} createTodo={this.createTodo} startEditing={this.startEditing} />
+                <TodoTable
+                    todos={this.props.todos}
+                    createTodo={this.createTodo}
+                    startEditing={this.startEditing}
+                    cancelEditing={this.cancelEditing}
+                    editTodo={this.editTodo}
+                    completeTodo = {this.completeTodo}
+                    deleteTodo = {this.deleteTodo}
+                />
             </div>
         );
     }

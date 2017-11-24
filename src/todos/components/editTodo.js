@@ -14,6 +14,9 @@ class EditTodo extends Component {
     constructor(props) {
         super(props);
 
+        window.props = props;
+        window.moment = moment;
+
         if (this.props.todo) {
             this.state = {
                 ...this.props.todo
@@ -23,8 +26,6 @@ class EditTodo extends Component {
                 ...this.emptyTodo()
             }
         }
-
-        console.log(this.state)
     }
 
     emptyTodo = () => {
@@ -45,13 +46,21 @@ class EditTodo extends Component {
 
     createTodo = (event) => {
         this.resetTodo()
-        this
-            .props
-            .createTodo(this.state)
+        this.props.createTodo(this.state)
+    }
+    editTodo = (event) => {
+        this.props.editTodo(this.state)
     }
 
     resetTodo = () => {
         this.setState({title: "", description: "", date: moment()})
+    }
+    cancelEditing = () => {
+        this.props.cancelEditing();
+    }
+
+    getDateForDatePicker() {
+        return moment(this.state.date)
     }
 
     render() {
@@ -70,19 +79,55 @@ class EditTodo extends Component {
                         onChange={this.changeNewDescription}/>
                 </Table.Cell>
                 <Table.Cell>
-                    <DatePicker selected={this.state.date} onChange={this.changeNewDate}/>
+                    <DatePicker
+                        selected={this.getDateForDatePicker()}
+                        onChange={this.changeNewDate}/>
                 </Table.Cell>
-                <Table.Cell>
-                    <Button color='green' onClick={this.createTodo}>
-                        Create
-                    </Button>
-                    <Button color='blue' onClick={this.resetTodo}>
-                        Reset
-                    </Button>
-                </Table.Cell>
+                <Options
+                    todo={this.props.todo}    
+                    editTodo={this.editTodo}
+                    createTodo={this.createTodo}
+                    resetTodo={this.resetTodo}
+                    cancelEdit={this.cancelEditing}
+                />
             </Table.Row>
         )
     }
 }
 
 export default EditTodo;
+
+const Options = (props) => {
+    if (props.todo && props.todo.editing) {
+        return EditOptions(props);
+    } else {
+        return AddOptions(props);
+    }
+}
+
+const EditOptions = (props) => {
+    return (
+        <Table.Cell>
+            <Button color='green' onClick={props.editTodo}>
+                Edit
+            </Button>
+            < Button color='blue' onClick={props.cancelEdit}>
+                Cancel
+            </Button>
+        </Table.Cell>
+    );
+}
+
+const AddOptions = (props) => {
+    return (
+        <Table.Cell>
+            <Button color='green' onClick={props.createTodo}>
+                Create
+            </Button>
+            < Button color='blue' onClick={props.resetTodo}>
+                Reset
+            </Button>
+        </Table.Cell>
+    );
+}
+

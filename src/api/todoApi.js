@@ -11,6 +11,13 @@ const getTodo = () => {
     return HttpClient.get(TODO_API)
 }
 
-const TodoApi = {createTodo, getTodo}
+const updateTodo = todo => {
+    return HttpClient.put(TODO_API, todo)
+}
+const removeTodo = todo => {
+    return HttpClient.delete(`${TODO_API}/${todo._id}`)
+}
+
+const TodoApi = {createTodo, getTodo, updateTodo, removeTodo}
 
 export {TodoApi}
